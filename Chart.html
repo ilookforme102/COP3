@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+</head>
+<body>
+<div ID="custom_html_content_div">
+
+</div>
+<script type="text/javascript">
+    google.charts.load('current', {'packages':['corechart','bar']});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+        var dataTable =  new google.visualization.DataTable();
+        dataTable.addColumn('string', '');
+        // Use custom HTML content for the domain tooltip.
+        dataTable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
+        dataTable.addColumn('number', 'Lowest Pay Gap(Percent)');
+        dataTable.addColumn('number', 'Highest Pay Gap(Percent)');
+
+        dataTable.addRows([
+            ['Gender Pay Gap in general', createCustomHTMLContent('Italy','Estonia', 5.5, 26.9), 5.5, 26.9],
+            ['Pay Gap in Tech', createCustomHTMLContent('Slovak Republic','Ireland', 17.526, 49.052), 17.526, 49.052],
+        ]);
+
+        var options = {
+            title: 'Women in Tech',
+            colors: ['#17d611', '#dc2411'],
+            // This line makes the entire category's tooltip active.
+            focusTarget: 'category',
+            // Use an HTML tooltip.
+            tooltip: { isHtml: true }
+        };
+
+        // Create and draw the visualization.
+        new google.charts.Bar(document.getElementById('custom_html_content_div')).draw(dataTable, google.charts.Bar.convertOptions(options));
+    }
+
+    function createCustomHTMLContent(lowest, highest, percent1, percent2) {
+        return '<table class="medals_layout">' + '<tr>' +
+            '<td><b>'+lowest+'</b></td>' +
+            '<td><b>' + percent1 + '</b></td>' + '</tr>' + '<tr>' +
+            '<td><b>'+highest+'</b></td>' +
+            '<td><b>' + percent2 + '</b></td>' + '</tr>' + '<tr>';
+
+    }
+</script>
+</body>
+</html>

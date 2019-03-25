@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+        google.charts.load('current', {
+            'packages':['geochart'],
+            // Note: you will need to get a mapsApiKey for your project.
+            // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+            'mapsApiKey': 'AIzaSyAbF6-4_cERyZI1Howb3crWOde6fjmj2AI'
+        });
+        google.charts.setOnLoadCallback(drawGID);
+
+        function drawGID() {
+            var queryString = encodeURIComponent('SELECT A:N');
+
+            var query = new google.visualization.Query(
+                'https://docs.google.com/spreadsheets/d/1aQ1pR3gRiva5ASYhY9fkXMHfZjeu6NtBdyybVd8VyPg/edit#gid=0' + queryString);
+            query.send(handleQueryResponse);
+        }
+
+        function handleQueryResponse(response) {
+            if (response.isError()) {
+                alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+                return;
+            }
+            console.log(JSON.toString(response))
+            var data = response.getDataTable();
+            var options = {
+                colorAxis: {colors: ['#00853f', 'black', '#e31b23']},
+                backgroundColor: '#81d4fa',
+                datalessRegionColor: '#f8bbd0',
+                defaultColor: '#f5f5f5',
+            };
+            var chart = new google.visualization.GeoChart(document.getElementById('geochart-colors'));
+
+            chart.draw(data, options);
+
+        }
+
+
+    </script>
+</head>
+<body>
+<div id="geochart-colors" style="width: 800px; height: 400px;"></div>
+
+</body>
+</html>

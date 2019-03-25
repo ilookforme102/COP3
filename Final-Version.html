@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+        google.charts.load('current', {
+            'packages':['geochart','corechart'],
+            // Note: you will need to get a mapsApiKey for your project.
+            // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+            'mapsApiKey': 'AIzaSyAbF6-4_cERyZI1Howb3crWOde6fjmj2AI',
+            'callback':drawGID
+
+        });
+
+        function drawGID() {
+         var rawdata = [
+             ["New zealand",10,2473,6.88,4.75,1,0.15,11,14,7,9,4.77,5.92,96.13  ],
+             ["Australia",9.67,12265,7.35,5.75,2,0.13,9,12,11,2,4.21,6.13,98.17  ],
+             ["Switzerland",5.89,2484,2.8,7.75,3,0.15,11,2,-3,3,3.92,8.35,99.39  ],
+             ["Sweden",5.79,2911,1.28,9.75,4,0.17,11,6,-6,14,3.11,6.93,100  ],
+             ["Norway",5.71,1506,1,10,5,0.22,9,3,-16,1,3.36,7.71,98.17  ],
+             ["Netherlands",5.6,4804,2.42,8.75,6,0.18,11,4,-10,5,3.87,6.36,97.35  ],
+             ["Denmark",5.57,1596,2.23,8.25,7,0.14,11,8,5,4,3.96,6.85,98.78  ],
+             ["Slovenia",5.19,533,2.99,7.5,8,0.24,9,23,0,25,3.79,4.13,95.72  ],
+             ["United States",4.62,72000,4.98,6,9,0.14,17,1,-1,8,6.19,10,94.91  ],
+             ["United Kingdom",4.6,14445,2.33,9.25,10,0.15,9,18,10,14,4.48,4.95,96.13  ],
+             ["Finland",4.59,1208,1.19,9.5,11,0.18,9,15,0,24,3.53,5.28,97.96  ],
+             ["Czech Republic",4.38,2194,2.61,6.75,12,0.15,7,28,19,28,3.67,3.21,97.15  ],
+             ["Germany",4.36,16884,2.42,7.25,13,0.16,11,7,-3,6,3.68,6.19,98.37  ],
+             ["Ireland",4.02,859,2.04,8.25,14,0.16,8,13,2,6,3.7,4.84,97.56  ],
+             ["Belgium",3.79,1941,2.61,7.25,15,0.15,10,11,5,21,3.92,5.83,97.96  ],
+             ["Austria",3.51,1334,2.42,6.75,16,0.27,11,5,-23,23,3.74,6.36,95.31  ],
+             ["Iceland",3.49,51,1.09,8.5,17,0.25,9,17,-8,16,2.82,4.96,97.96  ],
+             ["France",3.48,9871,2.52,5.25,18,0.19,11,10,-6,22,4.01,6.2,96.94  ],
+             ["Canada",3.41,5382,1.66,7.25,19,0.21,11,9,-9,9,4.63,6.34,95.11  ],
+             ["Slovakia",3.41,806,2.33,6.5,20,0.23,8,29,7,35,5.61,3.41,91.24  ],
+             ["Serbia",3.32,1016,3.27,5.75,21,0.34,10,38,1,66,8.53,3.63,83.09  ],
+             ["Estonia",3.04,166,1.66,8.5,22,0.34,6,34,-2,30,5.61,2.65,89.2  ],
+             ["Latvia",2.84,225,1.95,8,23,0.38,6,39,0,46,7.57,2.44,83.91  ],
+             ["Hungary",2.84,1117,2.42,5.75,24,0.31,8,30,-3,44,5.4,3.08,90.22  ],
+             ["Spain",2.74,5004,4.03,3.75,25,0.19,9,20,3,26,3.86,4.47,96.54  ],
+             ["Lithuania",2.53,275,2.33,7.5,26,0.39,7,32,-8,37,6.62,2.74,85.94  ],
+             ["Croatia",2.39,365,3.08,5,27,0.26,8,33,7,47,5.2,3.18,91.85  ],
+             ["Malta",2.37,36,5.17,4.5,28,0.17,9,22,9,37,4.76,4.26,94.7  ],
+             ["Italy",2.35,5124,4.03,4.75,29,0.14,9,19,15,27,3.35,4.76,98.98  ],
+             ["Israel",2.13,593,6.02,5.25,30,0.24,8,26,2,18,3.8,3.85,95.72  ],
+             ["Macedonia",2.13,144,3.37,4.75,31,0.47,7,51,-1,81,7.57,2.36,83.3  ],
+             ["Poland",2.08,2583,2.23,7.5,32,0.52,7,36,-19,36,5.7,2.66,86.15  ],
+             ["Ukraine",2.04,2792,2.33,7,33,0.4,7,52,9,81,10.39,2.61,77.8  ],
+             ["Bulgaria",1.98,439,3.94,5.25,34,0.43,8,41,-7,59,7.86,2.79,82.89  ],
+             ["Russia",1.95,8717,1.19,8,35,0.42,7,35,-11,50,9.84,2.76,77.8  ],
+             ["Cyprus",1.95,52,5.17,3.5,36,0.27,7,25,-4,32,3.72,3.48,94.91  ],
+             ["Romania",1.91,1121,3.27,4.75,37,0.32,6,43,8,52,8.76,2.15,81.87  ],
+             ["Portugal",1.72,464,4.69,3.5,38,0.23,10,21,0,43,3.91,4.35,95.72  ],
+             ["Greece",1.7,472,4.51,4,39,0.43,9,24,-23,29,4.03,4.11,91.65  ],
+             ["Montenegro",1.59,23,3.75,4.75,40,0.3,7,46,14,49,7.64,2.5,85.33  ],
+             ["South Africa",1.54,1858,7.25,4,41,0.26,9,44,17,116,25.73,3.21,42.56  ],
+             ["Argentina",1.52,1460,3.65,4.25,42,0.39,5,49,7,40,9.27,2.2,80.04  ],
+             ["Colombia",1.49,1488,9.72,1.5,43,0.22,7,50,30,97,13.55,2.55,72.3  ],
+             ["Brazil",1.47,6174,9.05,2,44,0.32,8,40,6,75,14.54,3.25,68.63  ],
+             ["Bosnia and Herzegovina",1.44,106,3.27,5.75,45,0.47,10,47,-4,85,6.68,3.42,86.15  ],
+             ["Turkey",1.31,1552,4.32,4,46,0.41,5,48,3,72,11.05,2.1,75.35  ],
+             ["Chile",1.28,331,4.41,2.75,47,0.37,7,37,-1,42,5.94,2.97,88.19  ],
+             ["Mexico",1.26,2031,7.35,3.75,48,0.3,6,45,14,74,10.93,2.42,77.19  ],
+             ["Albania",1.2,38,3.84,4.75,49,0.58,6,55,-3,85,9.93,2.02,76.37  ],
+             ["South Korea",1.2,649,4.79,3,50,0.41,7,27,-17,17,3.87,3.24,91.85  ],
+             ["Japan",1.16,1371,5.07,3.5,51,0.5,10,16,-37,20,3.23,5.46,91.44  ],
+             ["China",1.1,9814,5.45,4.25,52,0.63,5,54,-6,90,9.84,1.93,75.96  ],
+             ["Iran",1.1,531,5.17,2.75,53,0.39,7,42,1,69,12.47,2.61,72.3  ],
+             ["Indonesia",1.05,1069,10,1.25,54,0.51,3,58,4,110,16.44,1.04,61.09  ],
+             ["Philippines",1.03,298,8.48,2.25,55,0.46,4,57,7,115,15.19,1.58,65.17  ],
+             ["Nigeria",1.02,436,9.43,1,56,0.67,4,60,-2,152,40.79,1.28,57  ],
+             ["Saudi Arabia",1.02,58,7.35,2.75,57,0.28,4,31,1,39,8.73,1.83,81.67  ],
+             ["Pakistan",1.02,325,6.21,3,58,0.63,3,61,0,147,29.9,1,27.69  ],
+             ["India",1.02,2100,7.82,2.25,59,0.53,4,59,2,130,24.97,1.54,40.72  ],
+             ["Egypt",1,119,6.59,2.75,60,0.45,5,56,7,108,13.43,1.85,69.44  ],
+             ["Iraq",1,49,5.64,2.75,61,0.53,5,53,-3,121,17.65,1.75,58.04  ],
+             ["Bangladesh",1,153,7.54,2,62,0.62,3,62,3,142,20.09,1.06,51.52  ]
+         ];
+            function createCustomHTMLContent(a1,a3,a4,a2,a6,a11,a12,a13) {
+                return '<div class="table-container" >' +
+                    '<table id="customers">'+
+                    '<tr>'+
+                    '<th colspan="4">SKIN CANCER SUSCEPTIBILITY INDEX</th>'+
+                '</tr>'+
+                '<tr>'+
+                '<th>New Cases by Population</th>'+
+                '<th>Average UV Factor</th>'+
+                '<th>Skin Color Scale</th>'+
+                '<th>Annual Melanoma Cases</th>'+
+                '</tr>'+
+                '<tr>'+
+                '<td>'+ a1+'</td>'+
+                '<td>'+a3+'</td>'+
+                '<td>'+a4+'</td>'+
+                '<td>'+a2+'</td>'+
+                '</tr>'+
+                '</table>'+
+                '<br>'+
+                '<table id="customers">'+
+                '<tr>'+
+                '<th colspan="4">SOCIO-ECONOMIC SKIN CANCER INDEX</th>'+
+                '</tr>'+
+                '<tr>'+
+                '<th>Mortality Rate</th>'+
+                '<th>Lifetime Expectancy Inequakity Index</th>'+
+                '<th>National Health Spending Score</th>'+
+                '<th>#score</th>'+
+                '</tr>'+
+                '<tr>'+
+                '<td>'+a6+'</td>'+
+                '<td>'+a11+'</td>'+
+                '<td>'+a12+'</td>'+
+                '<td>'+a13+'</td>'+
+
+                '</tr>'+
+
+                '</table>'+
+                    '</div>';
+            }
+            var viewdata =  new google.visualization.DataTable();
+            viewdata.addColumn('string','Country');
+            viewdata.addColumn('number','Score');
+            viewdata.addColumn({type: 'string', role: 'tooltip',p: {html: true}});
+            viewdata.addRows(rawdata.map(d=> [d[0],d[13], createCustomHTMLContent(d[1],d[3],d[4],d[2],d[6],d[11],d[12],d[13])]));
+
+            var options = {
+                height: 900,
+                colorAxis: {colors: ['#E9EAE6', '#484848']},
+                backgroundColor: '#4fc1fa',
+                datalessRegionColor: 'white',
+                tooltip: {
+                    isHtml: true,
+
+                },
+            };
+            var chart = new google.visualization.GeoChart(document.getElementById('geochart-colors'));
+            chart.draw(viewdata, options);
+
+        }
+
+
+    </script>
+</head>
+<style>
+    div.google-visualization-tooltip {
+        width:400px !important;
+        background-color: #ffffff !important;
+        padding:10px !important;
+        opacity: 1 !important;
+        margin:1em !important;
+        border-radius: 10px !important;
+        border:1px solid transparent !important;
+        font-weight: lighter  !important;
+    }
+    div.google-visualization-tooltip > ul > li{
+        text-align: center !important;
+    }
+
+    div.google-visualization-tooltip > ul > li > span {
+        color: #141214 !important;
+        text-transform: uppercase !important;
+    }
+    .table-container {
+        width: 100%;
+        margin: 0 ;
+        padding:5px
+    }
+    #customers {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+        height: auto;
+        margin:0;
+        padding:0
+    }
+
+
+
+    #customers td, #customers th {
+        border: 1px solid white;
+        padding: 10px;
+        color: white;
+
+    }
+
+    #customers tr:nth-child(odd){background-color: #5bc677;}
+
+
+    #customers th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #484848;
+    }
+    #customers tr:nth-child(even) th {
+        font-weight: lighter;
+    }
+    /* Style for tooltip if needed */
+    /*
+    div.google-visualization-tooltip-action:hover {
+        background-color: #eeeeee;
+    }
+    div.google-visualization-tooltip {
+        border:solid 1px #bdbdbd;
+        border-radius: 2px;
+        background-color: white;
+        position: absolute;
+        box-shadow: 0px 2px 2px 0px rgba(204, 204, 204, 0.6);
+        font-size: 12px;
+        padding: 0px;
+        -moz-box-shadow: 0px 2px 2px 0px rgba(204, 204, 204, 0.6);
+        -webkit-box-shadow: 0px 2px 2px 0px rgba(204, 204, 204, 0.6);
+    }
+    div.google-visualization-tooltip-action-list {
+        list-style-type: none;
+        margin: 0;
+        padding: 0.5em 0em 0.5em 0em;
+        cursor: hand;
+    }
+    div.google-visualization-tooltip-action {
+        margin: 0;
+        cursor: pointer;
+        padding: 0.5em 2em 0.5em 1em;
+    }
+    div.google-visualization-tooltip-action:hover {
+        background-color: #eeeeee;
+    }
+    div.google-visualization-tooltip-item-list {
+        list-style-type: none;
+        margin: 1em 0 1em 0;
+        padding: 0em;
+    }
+    div.google-visualization-tooltip-item {
+        margin: 0.65em 0em 0.65em 0em;
+        padding: 0em 2em 0em 1em;
+    }
+
+    div.google-visualization-tooltip-separator {
+        margin: 0;
+        padding: 0;
+        height: 1px;
+        background-color: #dddddd;
+    }
+    div.google-visualization-tooltip-square {
+        display: inline-block;
+        float: left;
+        clear: none;
+        width: 0.5em;
+        height: 0.5em;
+        margin: 0.16em 0.7em 0em 0em;
+        border-bottom: solid 0.1em white;
+    }
+*/
+</style>
+<body>
+
+<div id="geochart-colors" style="width: 100%; height: auto;"></div>
+
+</body>
+</html>
